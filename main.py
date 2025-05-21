@@ -1,7 +1,9 @@
+import datetime as dt
+import os
+from zoneinfo import ZoneInfo
+
 import requests
 from dotenv import load_dotenv
-import os
-
 
 BASE_URL = "https://www.pythonanywhere.com"
 LOGIN_URL = f"{BASE_URL}/login/"
@@ -42,10 +44,12 @@ class PythonAnywhereTool:
             "X-CSRFToken": self.csrftoken,
             "X-Requested-With": "XMLHttpRequest",
             "Origin": "https://www.pythonanywhere.com",
-            "Cookie": f"web_app_tab_type={WEB_APP_TAP_TYPE};"
-                      f"cookie_warning_seen=True;"
-                      f"csrftoken={self.csrftoken};"
-                      f"sessionid={self.session_id};",
+            "Cookie": (
+                f"web_app_tab_type={WEB_APP_TAP_TYPE};"
+                "cookie_warning_seen=True;"
+                "csrftoken={self.csrftoken};"
+                "sessionid={self.session_id};"
+            ),
             "Content-Type": "application/x-www-form-urlencoded",
         }
 
@@ -55,7 +59,10 @@ class PythonAnywhereTool:
             headers=headers,
         )
 
-        print(r.status)
+        # TODO improve logging here
+        print(f"status_code: {r.status_code}, reason: {r.reason}, ok->{r.ok}")
+        portugal_datetime = dt.datetime.now(ZoneInfo("Europe/Lisbon"))
+        print(f"Portugal time: {portugal_datetime}")
 
     @staticmethod
     def api_reload_python_anywhere(self) -> None:
@@ -66,6 +73,7 @@ class PythonAnywhereTool:
             API_RELOAD_URL,
             headers={"Authorization": "Token {token}".format(token=token)},
         )
+
 
 python_anywhere_tool = PythonAnywhereTool()
 python_anywhere_tool.login()
