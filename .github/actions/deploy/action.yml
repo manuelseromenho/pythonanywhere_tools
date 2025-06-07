@@ -1,0 +1,41 @@
+name: "Deploy to PythonAnywhere"
+description: "Push code to PythonAnywhere and reload the web app."
+
+inputs:
+  username:
+    description: "PythonAnywhere username"
+    required: true
+  api_token:
+    description: "PythonAnywhere API token"
+    required: true
+  ssh_key:
+    description: "Private SSH key for accessing PythonAnywhere"
+    required: true
+  remote_path:
+    description: "Remote path to the app"
+    required: true
+  domain:
+    description: "PythonAnywhere domain"
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Set up SSH key
+      shell: bash
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ inputs.ssh_key }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan ssh.pythonanywhere.com >> ~/.ssh/known_hosts
+
+    - name: Upload files via rsync
+      shell: bash
+      run: |
+        rsync -avz --delete $GITHUB_WORKSPACE/ ${{ inputs.username }}@ssh.pythonanywhere.com:${{ inputs.remote_path }}
+
+    - name: Reload app via PythonAnywhere API
+      shell: bash
+      run: |
+        curl -X POST https://www.pythonanywhere.com/api/v0/user/${{ inputs.username }}/webapps/${{ inputs.domain }}/reload/ \
+          -H "Authorization: Token ${{ inputs.api_token }}"
