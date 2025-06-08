@@ -20,4 +20,3 @@ jobs:
           api_token: ${{ secrets.API_TOKEN }}
           domain: manuelseromenho.pythonanywhere.com
           remote_path: ${{ secrets.REMOTE_PATH }}
-          ssh_key: ${{ secrets.SSH_KEY }}
