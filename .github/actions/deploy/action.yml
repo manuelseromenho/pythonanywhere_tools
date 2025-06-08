@@ -14,6 +14,12 @@ inputs:
   domain:
     description: "PythonAnywhere domain"
     required: true
+  deploy_secret:
+    description: "Deploy security secret"
+    required: true
+  deploy_url:
+    description: "Deploy API url"
+    required: true
 
 runs:
   using: "composite"
