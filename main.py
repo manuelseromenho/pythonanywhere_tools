@@ -28,7 +28,7 @@ class PythonAnywhereTool:
         self.extend_url = self.extend_url.replace("#", username)
         self.web_app_tab_type = self.web_app_tab_type.replace("#", username)
 
-    def login(self) -> None:
+    def login_pythonanywhere_website(self) -> None:
         self.client.get(self.LOGIN_URL)
         if "csrftoken" in self.client.cookies:
             self.csrftoken = self.client.cookies["csrftoken"]
@@ -85,5 +85,5 @@ class PythonAnywhereTool:
 
 username = os.getenv("USERNAME")
 python_anywhere_tool = PythonAnywhereTool(username=username)
-python_anywhere_tool.login()
+python_anywhere_tool.login_pythonanywhere_website()
 python_anywhere_tool.extend_python_anywhere()
