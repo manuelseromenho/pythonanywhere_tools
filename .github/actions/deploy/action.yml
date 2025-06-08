@@ -8,9 +8,6 @@ inputs:
   api_token:
     description: "PythonAnywhere API token"
     required: true
-  ssh_key:
-    description: "Private SSH key for accessing PythonAnywhere"
-    required: true
   remote_path:
     description: "Remote path to the app"
     required: true
@@ -21,18 +18,10 @@ inputs:
 runs:
   using: "composite"
   steps:
-    - name: Set up SSH key
+    - name: Trigger deploy endpoint
       shell: bash
       run: |
-        mkdir -p ~/.ssh
-        echo "${{ inputs.ssh_key }}" > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
-        ssh-keyscan ssh.pythonanywhere.com >> ~/.ssh/known_hosts
-
-    - name: Upload files via rsync
-      shell: bash
-      run: |
-        rsync -avz --delete $GITHUB_WORKSPACE/ ${{ inputs.username }}@ssh.pythonanywhere.com:${{ inputs.remote_path }}
+        curl -X POST ${{ inputs.deploy_url }} -H "Authorization: Bearer ${{ inputs.deploy_secret }}"
 
     - name: Reload app via PythonAnywhere API
       shell: bash
