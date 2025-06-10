@@ -27,7 +27,7 @@ runs:
     - name: Trigger deploy endpoint
       shell: bash
       run: |
-        curl -X POST ${{ inputs.domain }} -H "Authorization: Bearer ${{ inputs.deploy_secret }}"
+        curl -X POST ${{ inputs.domain }} -H "Authorization: ${{ inputs.deploy_secret }}"
 
     - name: Reload app via PythonAnywhere API
       shell: bash
