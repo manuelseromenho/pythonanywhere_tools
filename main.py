@@ -85,5 +85,11 @@ class PythonAnywhereTool:
 
 username = os.getenv("USERNAME")
 python_anywhere_tool = PythonAnywhereTool(username=username)
-python_anywhere_tool.login_pythonanywhere_website()
-python_anywhere_tool.extend_python_anywhere()
+
+# TODO improve into real logging
+try:
+    python_anywhere_tool.login_pythonanywhere_website()
+    python_anywhere_tool.extend_python_anywhere()
+    print("Success extending PythonAnywhere 3 months freetier.")
+except:
+    raise Exception
