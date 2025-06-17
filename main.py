@@ -51,14 +51,11 @@ class PythonAnywhereTool:
         headers = {
             "Host": "www.pythonanywhere.com",
             "Referer": "https://www.pythonanywhere.com/user/manuelseromenho/webapps/",
-            "X-CSRFToken": self.csrftoken,
-            "X-Requested-With": "XMLHttpRequest",
-            "Origin": "https://www.pythonanywhere.com",
             "Cookie": (
-                f"web_app_tab_type={self.web_app_tab_type};"
-                "cookie_warning_seen=True;"
-                "csrftoken={self.csrftoken};"
-                "sessionid={self.session_id};"
+                f"web_app_tab_type={self.web_app_tab_type}; "
+                f"cookie_warning_seen=True;"
+                f"csrftoken={self.csrftoken};"
+                f"sessionid={self.session_id};"
             ),
             "Content-Type": "application/x-www-form-urlencoded",
         }
