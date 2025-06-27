@@ -19,6 +19,5 @@ jobs:
           username: ${{ secrets.USERNAME }}
           api_token: ${{ secrets.API_TOKEN }}
           domain: manuelseromenho.pythonanywhere.com
-          remote_path: ${{ secrets.REMOTE_PATH }}
           deploy_secret: ${{ secrets.DEPLOY_SECRET}}
           deploy_url: ${{ secrets.DEPLOY_URL }}
