@@ -9,6 +9,19 @@ load_dotenv()
 
 
 class PythonAnywhereTool:
+    """
+    Example:
+    username = os.getenv("USERNAME")
+    python_anywhere_tool = PythonAnywhereTool(username=username)
+
+    try:
+        python_anywhere_tool.login_pythonanywhere_website()
+        python_anywhere_tool.extend_python_anywhere()
+        print("Success extending PythonAnywhere 3 months freetier.")
+    except:
+        raise Exception
+    """
+
     BASE_URL = "https://www.pythonanywhere.com"
     LOGIN_URL = f"{BASE_URL}/login/"
     api_reload_url = f"{BASE_URL}/api/v0/user/#/webapps/#.pythonanywhere.com/reload/"
@@ -78,15 +91,3 @@ class PythonAnywhereTool:
             self.api_reload_url,
             headers={"Authorization": "Token {token}".format(token=token)},
         )
-
-
-username = os.getenv("USERNAME")
-python_anywhere_tool = PythonAnywhereTool(username=username)
-
-# TODO improve into real logging
-try:
-    python_anywhere_tool.login_pythonanywhere_website()
-    python_anywhere_tool.extend_python_anywhere()
-    print("Success extending PythonAnywhere 3 months freetier.")
-except:
-    raise Exception
