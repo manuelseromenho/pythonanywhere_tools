@@ -1,6 +1,6 @@
 [project]
 name = "pythonanywhere-tools"
-version = "0.1.001"
+version = "0.1.002"
 description = "Simple set of tools to, reload the webserver, or extend for 3 months the free tier programatically."
 authors = [{ name="Manuel Seromenho", email="manuelseromenho@gmail.com" }]
 readme = "README"
